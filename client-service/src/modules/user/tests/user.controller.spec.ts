@@ -107,7 +107,7 @@ describe('UserController', () => {
     it('should associate voucher to user successfully', async () => {
       const userId = '123e4567-e89b-12d3-a456-426614174000';
       const dto: AssociateVoucherToUserDTO = {
-        voucherId: '124e4567-e89b-12d3-a456-426614174000',
+        voucherCode: '124e4567-e89b-12d3-a456-426614174000',
       };
 
       const result = await userController.associateVoucherToUser(userId, dto);
@@ -123,7 +123,7 @@ describe('UserController', () => {
     it('should throw an error if something goes wrong', async () => {
       const userId = '123e4567-e89b-12d3-a456-426614174000';
       const dto: AssociateVoucherToUserDTO = {
-        voucherId: '124e4567-e89b-12d3-a456-426614174000',
+        voucherCode: '124e4567-e89b-12d3-a456-426614174000',
       };
 
       jest

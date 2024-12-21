@@ -7,10 +7,14 @@ import {
   CreateOneUserDTO,
 } from '../../presentation/dtos';
 import { CommonResponse } from '@/shared/types';
+import { VoucherServiceClient } from '../http/clients';
 
 @Injectable()
 export class PrismaUserRepository implements UserRepository {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly voucherServiceClient: VoucherServiceClient,
+  ) {}
   public async createOneUser({ email, name }: CreateOneUserDTO) {
     const existsCustomer = (await this.verifyEmailExistence(email)).data;
 
@@ -41,16 +45,22 @@ export class PrismaUserRepository implements UserRepository {
 
   public async associateVoucherToUser(
     userId: string,
-    { voucherId }: AssociateVoucherToUserDTO,
+    { voucherCode }: AssociateVoucherToUserDTO,
   ): Promise<CommonResponse<User>> {
-    const data = await this.prisma.user.update({
+    const { data: isVoucherUsed } =
+      await this.voucherServiceClient.isVoucherUsed(voucherCode);
+
+    if (isVoucherUsed)
+      throw new ConflictException('This voucher has already been used');
+
+    const userUpdated = await this.prisma.user.update({
       where: {
         id: userId,
       },
       data: {
         vouchers: {
           connect: {
-            id: voucherId,
+            id: voucherCode,
           },
         },
       },
@@ -60,7 +70,7 @@ export class PrismaUserRepository implements UserRepository {
     });
 
     return {
-      data,
+      data: userUpdated,
     };
   }
 

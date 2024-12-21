@@ -14,11 +14,12 @@ import {
 } from '@/shared/responses';
 import { CommonResponse } from '@/shared/types';
 import { AssociateVoucherToUserDTO } from '../dtos';
+import { VoucherServiceClient } from '../../infra/http/clients';
 
 @ApiTags('users')
 @Controller('users')
 export class UserController {
-  constructor(private userService: UserService) {}
+  constructor(private readonly userService: UserService) {}
 
   @Post()
   @ApiOperation({
