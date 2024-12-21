@@ -4,7 +4,7 @@ import { VoucherStatus } from '@/shared/enums';
 
 export interface VoucherRepository {
   createOneVoucher(
-    voucher: Pick<Voucher, 'code' | 'expirationDate'>,
+    dto: Pick<Voucher, 'code' | 'expirationDate'>,
   ): Promise<CommonResponse<Voucher>>;
 
   findVoucherByCode(code: string): Promise<CommonResponse<Voucher>>;
@@ -13,15 +13,8 @@ export interface VoucherRepository {
 
   findAllVouchers(): Promise<CommonResponse<Voucher[]>>;
 
-  updateVoucherStatus(
+  updateVoucherStatusByCode(
     voucherCode: string,
-    status: VoucherStatus,
-  ): Promise<CommonResponse<Voucher>>;
-
-  deleteVoucherByCode(code: string): Promise<CommonResponse<Voucher>>;
-
-  updateVoucherExpirationDate(
-    voucherCode: string,
-    expirationDate: Date,
+    dto: Pick<Voucher, 'status'>,
   ): Promise<CommonResponse<Voucher>>;
 }

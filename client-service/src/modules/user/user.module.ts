@@ -17,7 +17,6 @@ import { VoucherServiceClient } from './infra/http/clients';
     VoucherServiceClient,
   ],
   controllers: [UserController],
-  exports: [UserService],
   imports: [HttpModule],
 })
 export class UserModule {}

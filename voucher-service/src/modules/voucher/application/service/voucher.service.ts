@@ -2,7 +2,10 @@ import { Inject, Injectable } from '@nestjs/common';
 import { VoucherRepository } from '../../domain/repositories';
 import { CommonResponse } from '@/shared/types';
 import { Voucher } from '../../domain/entities';
-import { CreateOneVoucherDTO } from '../../presentation/dtos';
+import {
+  CreateOneVoucherDTO,
+  UpdateVoucherStatusByCodeDTO,
+} from '../../presentation/dtos';
 
 @Injectable()
 export class VoucherService {
@@ -31,5 +34,12 @@ export class VoucherService {
 
   public async findAllVouchers(): Promise<CommonResponse<Voucher[]>> {
     return await this.voucherRepository.findAllVouchers();
+  }
+
+  public async updateVoucherStatusByCode(
+    code: string,
+    dto: UpdateVoucherStatusByCodeDTO,
+  ): Promise<CommonResponse<Voucher>> {
+    return await this.voucherRepository.updateVoucherStatusByCode(code, dto);
   }
 }

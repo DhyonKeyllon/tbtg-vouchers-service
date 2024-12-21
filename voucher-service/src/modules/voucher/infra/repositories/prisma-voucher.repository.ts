@@ -5,10 +5,8 @@ import {
 } from '@nestjs/common';
 import { VoucherRepository } from '../../domain/repositories';
 import { PrismaService } from '../orm';
-import { VoucherStatus } from '@/shared/enums';
 import { CommonResponse } from '@/shared/types';
 import { Voucher } from '../../domain/entities';
-import { CreateOneVoucherDTO } from '../../presentation/dtos';
 
 @Injectable()
 export class PrismaVoucherRepository implements VoucherRepository {
@@ -54,7 +52,9 @@ export class PrismaVoucherRepository implements VoucherRepository {
   public async createOneVoucher({
     code,
     expirationDate,
-  }: CreateOneVoucherDTO): Promise<CommonResponse<Voucher>> {
+  }: Pick<Voucher, 'code' | 'expirationDate'>): Promise<
+    CommonResponse<Voucher>
+  > {
     const existsVoucher = (await this.verifyVoucherExistence(code)).data;
 
     if (existsVoucher)
@@ -70,24 +70,20 @@ export class PrismaVoucherRepository implements VoucherRepository {
     return { data };
   }
 
-  public async updateVoucherStatus(
-    voucherCode: string,
-    status: VoucherStatus,
-  ): Promise<CommonResponse<Voucher>> {
-    throw new Error('Method not implemented.');
-  }
-
-  public async deleteVoucherByCode(
+  public async updateVoucherStatusByCode(
     code: string,
+    { status }: Pick<Voucher, 'status'>,
   ): Promise<CommonResponse<Voucher>> {
-    throw new Error('Method not implemented.');
-  }
+    const data = await this.prisma.voucher.update({
+      where: {
+        code,
+      },
+      data: {
+        status,
+      },
+    });
 
-  public async updateVoucherExpirationDate(
-    voucherCode: string,
-    expirationDate: Date,
-  ): Promise<CommonResponse<Voucher>> {
-    throw new Error('Method not implemented.');
+    return { data };
   }
 
   private async verifyVoucherExistence(code: string) {

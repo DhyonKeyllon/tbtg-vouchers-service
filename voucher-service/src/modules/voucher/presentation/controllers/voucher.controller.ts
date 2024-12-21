@@ -1,21 +1,32 @@
-import { Body, Controller, Get, HttpStatus, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  HttpStatus,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { VoucherService } from '../../application/service';
+
 import {
   ConflictResponseDTO,
   InvalidEntriesResponseDTO,
   RecordNotFoundDTO,
 } from '@/shared/responses';
-import { CreateOneVoucherDTO } from '../dtos';
 import { CommonResponse } from '@/shared/types';
+
 import { Voucher } from '../../domain/entities';
+import { VoucherService } from '../../application/service';
+
+import { CreateOneVoucherDTO, UpdateVoucherStatusByCodeDTO } from '../dtos';
 import {
   CreatedOneVoucherResponseDTO,
   FoundAllVouchersResponseDTO,
   FoundOneVoucherByCodeResponseDTO,
   FoundOneVoucherIsUsedByCodeResponseDTO,
+  UpdatedOneVoucherResponseDTO,
 } from '../dtos/responses';
-import { VoucherStatus } from '@/shared/enums';
 
 @ApiTags('vouchers')
 @Controller('vouchers')
@@ -90,9 +101,13 @@ export class VoucherController {
   }
 
   @Get(':code/is-used')
+  @ApiOperation({
+    description: 'Verify if voucher is used by code',
+    summary: 'Verify if voucher is used',
+  })
   @ApiResponse({
     status: HttpStatus.OK,
-    description: 'Is voucher used',
+    description: 'Is voucher used response',
     type: FoundOneVoucherIsUsedByCodeResponseDTO,
   })
   @ApiResponse({
@@ -109,24 +124,32 @@ export class VoucherController {
     @Param('code')
     code: string,
   ) {
-    return this.voucherService.findIsVoucherUsedByCode(code);
+    return await this.voucherService.findIsVoucherUsedByCode(code);
   }
 
-  updateVoucherStatus(
-    voucherCode: string,
-    status: VoucherStatus,
+  @Patch(':code')
+  @ApiOperation({
+    description: 'Update one voucher status with required fields',
+    summary: 'Update one voucher vtatus',
+  })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Updated voucher',
+    type: UpdatedOneVoucherResponseDTO,
+  })
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: 'Invalid entries response object',
+    type: InvalidEntriesResponseDTO,
+  })
+  public async updateVoucherStatusByCode(
+    @Param('code')
+    code: string,
+    @Body() updateVoucherStatusByCodeDto: UpdateVoucherStatusByCodeDTO,
   ): Promise<CommonResponse<Voucher>> {
-    throw new Error('Method not implemented.');
-  }
-
-  deleteVoucherByCode(code: string): Promise<CommonResponse<Voucher>> {
-    throw new Error('Method not implemented.');
-  }
-
-  updateVoucherExpirationDate(
-    voucherCode: string,
-    expirationDate: Date,
-  ): Promise<CommonResponse<Voucher>> {
-    throw new Error('Method not implemented.');
+    return await this.voucherService.updateVoucherStatusByCode(
+      code,
+      updateVoucherStatusByCodeDto,
+    );
   }
 }
