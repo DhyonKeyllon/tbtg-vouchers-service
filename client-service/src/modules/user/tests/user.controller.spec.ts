@@ -1,9 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 
-import {
-  AssociateVoucherToUserDTO,
-  CreateOneUserDTO,
-} from '../presentation/dtos';
+import { CreateOneUserDTO } from '../presentation/dtos';
 import { UserController } from '../presentation/controllers';
 import { UserService } from '../application/services';
 
@@ -84,7 +81,7 @@ describe('UserController', () => {
     it('should return a list of users entity successfully', async () => {
       const users = [userStub];
 
-      const result = await userController.findUsers();
+      const result = await userController.findAllUsers();
 
       expect(result).toEqual({ data: users });
       expect(userService.findAllUsers).toHaveBeenCalledTimes(1);
@@ -96,7 +93,7 @@ describe('UserController', () => {
         .mockRejectedValueOnce(new Error());
 
       try {
-        await userController.findUsers();
+        await userController.findAllUsers();
       } catch (error) {
         expect(error).toBeInstanceOf(Error);
       }
@@ -106,32 +103,31 @@ describe('UserController', () => {
   describe('associate voucher to user', () => {
     it('should associate voucher to user successfully', async () => {
       const userId = '123e4567-e89b-12d3-a456-426614174000';
-      const dto: AssociateVoucherToUserDTO = {
-        voucherCode: '124e4567-e89b-12d3-a456-426614174000',
-      };
+      const voucherCode = 'EXAMPLECODE';
 
-      const result = await userController.associateVoucherToUser(userId, dto);
+      const result = await userController.associateVoucherToUser(
+        userId,
+        voucherCode,
+      );
 
       expect(result).toEqual({ data: userStubWithAssociatedVouchers });
       expect(userService.associateVoucherToUser).toHaveBeenCalledTimes(1);
       expect(userService.associateVoucherToUser).toHaveBeenCalledWith(
         userId,
-        dto,
+        voucherCode,
       );
     });
 
     it('should throw an error if something goes wrong', async () => {
       const userId = '123e4567-e89b-12d3-a456-426614174000';
-      const dto: AssociateVoucherToUserDTO = {
-        voucherCode: '124e4567-e89b-12d3-a456-426614174000',
-      };
+      const voucherCode = 'EXAMPLECODE';
 
       jest
         .spyOn(userService, 'associateVoucherToUser')
         .mockRejectedValueOnce(new Error());
 
       try {
-        await userController.associateVoucherToUser(userId, dto);
+        await userController.associateVoucherToUser(userId, voucherCode);
       } catch (error) {
         expect(error).toBeInstanceOf(Error);
       }
