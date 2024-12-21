@@ -11,7 +11,7 @@ Sistema de vouchers para clientes
 - [Prisma](https://www.prisma.io/)
 - [Docker](https://www.docker.com/)
 
-## Iniciando o Projeto
+## Iniciando o Projeto (OBS: Essa instrução ainda não está pronta)
 
 ### Pré-requisitos
 
@@ -43,7 +43,7 @@ Node.js v22.10.0 ou acima
   npm install
 ```
 
-3. Execute `docker-compose up -d` e aguarde a criação dos containers com o docker para rodar a aplicação.
+3. Execute `docker-compose up -d` e aguarde a criação do container para o postgres.
 
 ```sh
   docker-compose up -d
