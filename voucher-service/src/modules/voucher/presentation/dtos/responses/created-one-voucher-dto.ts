@@ -1,5 +1,6 @@
-import { voucherStub } from '@/modules/voucher/tests/stubs';
 import { ApiProperty } from '@nestjs/swagger';
+
+import { voucherStub } from '@/modules/voucher/tests/stubs';
 
 export class CreatedOneVoucherResponseDTO {
   @ApiProperty({

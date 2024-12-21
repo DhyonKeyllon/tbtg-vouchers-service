@@ -3,10 +3,12 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
+
+import { CommonResponse } from '@/shared/types';
+
+import { Voucher } from '../../domain/entities';
 import { VoucherRepository } from '../../domain/repositories';
 import { PrismaService } from '../orm';
-import { CommonResponse } from '@/shared/types';
-import { Voucher } from '../../domain/entities';
 
 @Injectable()
 export class PrismaVoucherRepository implements VoucherRepository {

@@ -1,4 +1,5 @@
 import { CommonResponse } from '@/shared/types';
+
 import { Voucher } from '../entities';
 
 export interface VoucherRepository {

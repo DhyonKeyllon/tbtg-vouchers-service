@@ -1,8 +1,9 @@
 import { Module } from '@nestjs/common';
-import { VoucherController } from './presentation/controllers';
+
 import { VoucherService } from './application/service';
-import { PrismaVoucherRepository } from './infra/repositories';
 import { PrismaService } from './infra/orm';
+import { PrismaVoucherRepository } from './infra/repositories';
+import { VoucherController } from './presentation/controllers';
 
 @Module({
   providers: [

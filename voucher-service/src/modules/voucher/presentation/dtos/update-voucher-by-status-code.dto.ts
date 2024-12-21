@@ -1,7 +1,10 @@
 import { IntersectionType, PickType } from '@nestjs/swagger';
+
 import { IsNotEmpty } from 'class-validator';
-import { VoucherDTO } from './voucher.dto';
+
 import { type VoucherStatus } from '@/shared/enums';
+
+import { VoucherDTO } from './voucher.dto';
 
 class DefaultUpdateVoucherStatusByCodeDTO extends PickType(VoucherDTO, [
   'status',

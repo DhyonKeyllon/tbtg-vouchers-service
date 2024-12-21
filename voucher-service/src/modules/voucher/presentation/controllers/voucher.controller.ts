@@ -16,9 +16,8 @@ import {
 } from '@/shared/responses';
 import { CommonResponse } from '@/shared/types';
 
-import { Voucher } from '../../domain/entities';
 import { VoucherService } from '../../application/service';
-
+import { Voucher } from '../../domain/entities';
 import { CreateOneVoucherDTO, UpdateVoucherStatusByCodeDTO } from '../dtos';
 import {
   CreatedOneVoucherResponseDTO,

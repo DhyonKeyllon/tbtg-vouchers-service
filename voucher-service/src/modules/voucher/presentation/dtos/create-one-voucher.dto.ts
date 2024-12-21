@@ -1,5 +1,7 @@
 import { IntersectionType, PickType } from '@nestjs/swagger';
+
 import { IsNotEmpty } from 'class-validator';
+
 import { VoucherDTO } from './voucher.dto';
 
 class DefaultCreateVoucherDTO extends PickType(VoucherDTO, [

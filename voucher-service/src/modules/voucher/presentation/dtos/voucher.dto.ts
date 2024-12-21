@@ -1,7 +1,9 @@
+import { ApiProperty } from '@nestjs/swagger';
+
+import { IsEnum, IsString, IsUUID } from 'class-validator';
+
 import { CommonFieldsDTO } from '@/shared/dtos';
 import { VoucherStatus } from '@/shared/enums';
-import { ApiProperty } from '@nestjs/swagger';
-import { IsEnum, IsString, IsUUID } from 'class-validator';
 
 export class VoucherDTO extends CommonFieldsDTO {
   @ApiProperty({
