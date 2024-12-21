@@ -23,6 +23,12 @@ export class VoucherService {
     return await this.voucherRepository.findVoucherByCode(code);
   }
 
+  public async findIsVoucherUsedByCode(
+    code: string,
+  ): Promise<CommonResponse<boolean>> {
+    return await this.voucherRepository.findIsVoucherUsedByCode(code);
+  }
+
   public async findAllVouchers(): Promise<CommonResponse<Voucher[]>> {
     return await this.voucherRepository.findAllVouchers();
   }

@@ -49,4 +49,4 @@ Node.js v22.10.0 ou acima
   docker-compose up -d
 ```
 
-4. Acesse a URL [`localhost:3000`](http://localhost:3000/docs) e a URL [`localhost:3001`](http://localhost:3001/docs) para acessar a documentação das API's.
+4. Acesse a URL [`localhost:3000/docs`](http://localhost:3000/docs) e a URL [`localhost:3001/docs`](http://localhost:3001/docs) para acessar a documentação das API's.

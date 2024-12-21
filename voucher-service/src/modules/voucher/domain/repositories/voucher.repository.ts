@@ -9,17 +9,19 @@ export interface VoucherRepository {
 
   findVoucherByCode(code: string): Promise<CommonResponse<Voucher>>;
 
+  findIsVoucherUsedByCode(code: string): Promise<CommonResponse<boolean>>;
+
   findAllVouchers(): Promise<CommonResponse<Voucher[]>>;
 
   updateVoucherStatus(
-    voucherId: string,
+    voucherCode: string,
     status: VoucherStatus,
   ): Promise<CommonResponse<Voucher>>;
 
   deleteVoucherByCode(code: string): Promise<CommonResponse<Voucher>>;
 
   updateVoucherExpirationDate(
-    voucherId: string,
+    voucherCode: string,
     expirationDate: Date,
   ): Promise<CommonResponse<Voucher>>;
 }

@@ -13,8 +13,8 @@ import {
   CreatedOneVoucherResponseDTO,
   FoundAllVouchersResponseDTO,
   FoundOneVoucherByCodeResponseDTO,
+  FoundOneVoucherIsUsedByCodeResponseDTO,
 } from '../dtos/responses';
-import { VoucherRepository } from '../../domain/repositories';
 import { VoucherStatus } from '@/shared/enums';
 
 @ApiTags('vouchers')
@@ -49,9 +49,13 @@ export class VoucherController {
   }
 
   @Get()
+  @ApiOperation({
+    description: 'Find all vouchers',
+    summary: 'Find all vouchers',
+  })
   @ApiResponse({
     status: HttpStatus.OK,
-    description: 'Found alls vouchers',
+    description: 'Found all vouchers',
     type: FoundAllVouchersResponseDTO,
   })
   public async findAllVouchers(): Promise<CommonResponse<Voucher[]>> {
@@ -74,11 +78,6 @@ export class VoucherController {
     type: RecordNotFoundDTO,
   })
   @ApiResponse({
-    status: HttpStatus.CONFLICT,
-    description: 'Conflicting voucher response object',
-    type: ConflictResponseDTO,
-  })
-  @ApiResponse({
     status: HttpStatus.BAD_REQUEST,
     description: 'Invalid entries response object',
     type: InvalidEntriesResponseDTO,
@@ -90,8 +89,31 @@ export class VoucherController {
     return await this.voucherService.findVoucherByCode(code);
   }
 
+  @Get(':code/is-used')
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Is voucher used',
+    type: FoundOneVoucherIsUsedByCodeResponseDTO,
+  })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: 'Voucher not found',
+    type: RecordNotFoundDTO,
+  })
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: 'Invalid entries response object',
+    type: InvalidEntriesResponseDTO,
+  })
+  public async findIsVoucherUsedByCode(
+    @Param('code')
+    code: string,
+  ) {
+    return this.voucherService.findIsVoucherUsedByCode(code);
+  }
+
   updateVoucherStatus(
-    voucherId: string,
+    voucherCode: string,
     status: VoucherStatus,
   ): Promise<CommonResponse<Voucher>> {
     throw new Error('Method not implemented.');
@@ -102,7 +124,7 @@ export class VoucherController {
   }
 
   updateVoucherExpirationDate(
-    voucherId: string,
+    voucherCode: string,
     expirationDate: Date,
   ): Promise<CommonResponse<Voucher>> {
     throw new Error('Method not implemented.');

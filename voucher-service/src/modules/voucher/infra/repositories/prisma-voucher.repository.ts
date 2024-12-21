@@ -36,7 +36,20 @@ export class PrismaVoucherRepository implements VoucherRepository {
     return { data };
   }
 
-  public async findCaseVoucherAlreadyAssociated(code: string, userId: string) {}
+  public async findIsVoucherUsedByCode(
+    code: string,
+  ): Promise<CommonResponse<boolean>> {
+    const voucher = await this.prisma.voucher.findUnique({
+      where: { code },
+      include: { user: true },
+    });
+
+    if (!voucher) throw new NotFoundException('Voucher not found');
+
+    const isUsed = !!voucher.user;
+
+    return { data: isUsed };
+  }
 
   public async createOneVoucher({
     code,
@@ -58,7 +71,7 @@ export class PrismaVoucherRepository implements VoucherRepository {
   }
 
   public async updateVoucherStatus(
-    voucherId: string,
+    voucherCode: string,
     status: VoucherStatus,
   ): Promise<CommonResponse<Voucher>> {
     throw new Error('Method not implemented.');
@@ -71,7 +84,7 @@ export class PrismaVoucherRepository implements VoucherRepository {
   }
 
   public async updateVoucherExpirationDate(
-    voucherId: string,
+    voucherCode: string,
     expirationDate: Date,
   ): Promise<CommonResponse<Voucher>> {
     throw new Error('Method not implemented.');
