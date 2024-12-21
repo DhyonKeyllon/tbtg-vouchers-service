@@ -31,52 +31,57 @@ Node.js v22.10.0 ou acima
 
 1. Primeiro, execute `docker-compose up -d` e aguarde a criação do container para o postgres.
 
-> Pode ser uma versão atual do docker que esteja estável.
-
-```sh
-  docker-compose up -d
+```bash
+  # run postgres database container
+  $ docker-compose up -d
 ```
 
 2. A partir do diretório root do projeto, entre no diretório `./client-service` e instale as dependências necessárias executando o comando `npm install`.
 
-> Lembre de usar a versão do Node v22.10.0 em seu terminal.
-
-```sh
-  npm install
+```bash
+  # install deps
+  $ npm install
 ```
 
-3. No mesmo diretório `./client-service` execute o comando `npm run prisma:generate` para compilar os types necessários para rodar o prisma.
+- 2.1. Crie um arquivo `.env` e coloque as mesmas envs e valores do arquivo `.env.example`.
 
-```sh
-  npm run prisma:generate
+- 2.2. No mesmo diretório `./client-service` execute o comando `npm run prisma:generate` para compilar os types necessários para rodar o prisma.
+
+```bash
+  # prisma generate
+  $ npm run prisma:generate
 ```
 
-4. Rode o servidor executando o comando `npm run start:dev`, certifique-se que sua porta local `:3000` esteja disponível para uso.
+- 2.3. Rode o servidor executando o comando `npm run start:dev`, certifique-se que sua porta local `:3000` esteja disponível para uso.
 
-```sh
-  npm run start:dev
+```bash
+  # run server
+  $ npm run start:dev
 ```
 
-> Você deve receber uma mensagem no terminal informando que o servidor está rodando na sua porta local :3000
+> Você pode rodar os testes de exemplo no `/client-service` executando `npm run test:example`.
 
-5. Agora, novamente vá para o diretório root da aplicação e entre no diretório `./voucher-service` e instale as dependências necessárias executando o comando `npm install`.
+3. Agora, inicie uma nova instância do seu terminal. Vá para o diretório do projeto e então entre no diretório `./voucher-service` e instale as dependências necessárias executando o comando `npm install`.
 
-```sh
-  npm install
+```bash
+  # install deps
+  $ npm install
 ```
 
-6. Novamente, no mesmo diretório `./voucher-service` execute o comando `npm run prisma:generate` para compilar os types necessários para rodar o prisma.
+- 3.1. Crie um arquivo `.env` e coloque as mesmas envs e valores do arquivo `.env.example`.
 
-```sh
-  npm run prisma:generate
+- 3.2. Novamente, no mesmo diretório `./voucher-service` execute o comando `npm run prisma:generate` para compilar os types necessários para rodar o prisma.
+
+```bash
+  # prisma generate
+  $ npm run prisma:generate
 ```
 
-7. Rode o servidor executando o comando `npm run start:dev`, certifique-se que sua porta local `:3001` esteja disponível para uso.
+- 3.3. Rode o servidor executando o comando `npm run start:dev`, certifique-se que sua porta local `:3001` esteja disponível para uso.
 
-```sh
-  npm run start:dev
+```bash
+  # run server
+  $ npm run start:dev
 ```
 
-> Você deve receber uma mensagem no terminal informando que o servidor está rodando na sua porta local :3001
-
-8. Acesse a URL [`localhost:3000/docs`](http://localhost:3000/docs) e a URL [`localhost:3001/docs`](http://localhost:3001/docs) para acessar a documentação das API's.
+4. Acesse a URL [`localhost:3000/docs`](http://localhost:3000/docs) e a URL [`localhost:3001/docs`](http://localhost:3001/docs) para acessar a documentação das API's.
