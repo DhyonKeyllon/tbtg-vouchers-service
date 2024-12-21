@@ -4,7 +4,7 @@ import { ApiProperty } from '@nestjs/swagger';
 class NotFoundErrorResponse {
   @ApiProperty({
     description: 'Error message',
-    example: 'The customer was not found',
+    example: 'The requested resource was not found',
   })
   public readonly message: string[];
 

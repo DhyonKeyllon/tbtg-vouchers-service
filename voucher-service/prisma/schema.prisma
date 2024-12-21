@@ -18,12 +18,17 @@ model User {
 }
 
 model Voucher {
-  id             String   @id @default(uuid())
-  code           String   @unique
-  voucherStatus  String   @default("ACTIVE")
+  id             String        @id @default(uuid())
+  code           String        @unique
+  status         VoucherStatus @default(ACTIVE)
   expirationDate DateTime
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
-  userId         String
-  user           User     @relation(fields: [userId], references: [id])
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+  userId         String?
+  user           User?         @relation(fields: [userId], references: [id])
+}
+
+enum VoucherStatus {
+  ACTIVE
+  INACTIVE
 }

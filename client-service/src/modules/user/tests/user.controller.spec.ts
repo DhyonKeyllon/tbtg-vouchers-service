@@ -84,7 +84,7 @@ describe('UserController', () => {
     it('should return a list of users entity successfully', async () => {
       const users = [userStub];
 
-      const result = await userController.foundUsers();
+      const result = await userController.findUsers();
 
       expect(result).toEqual({ data: users });
       expect(userService.findAllUsers).toHaveBeenCalledTimes(1);
@@ -96,7 +96,7 @@ describe('UserController', () => {
         .mockRejectedValueOnce(new Error());
 
       try {
-        await userController.foundUsers();
+        await userController.findUsers();
       } catch (error) {
         expect(error).toBeInstanceOf(Error);
       }

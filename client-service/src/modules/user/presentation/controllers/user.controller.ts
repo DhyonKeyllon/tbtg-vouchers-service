@@ -53,7 +53,7 @@ export class UserController {
     description: 'List of users',
     type: FoundAllUserResponseDTO,
   })
-  public async foundUsers() {
+  public async findAllUsers() {
     return this.userService.findAllUsers();
   }
 
@@ -66,7 +66,7 @@ export class UserController {
   })
   @ApiResponse({
     status: HttpStatus.NOT_FOUND,
-    description: 'User not found',
+    description: 'User or voucher not found',
   })
   @ApiResponse({
     status: HttpStatus.CONFLICT,
@@ -75,7 +75,7 @@ export class UserController {
   })
   @ApiResponse({
     status: HttpStatus.BAD_REQUEST,
-    description: 'Invalid voucher',
+    description: 'Invalid voucher id or user id',
   })
   public async associateVoucherToUser(
     @Param('id') userId: string,

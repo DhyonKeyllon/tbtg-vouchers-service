@@ -28,7 +28,11 @@ export class PrismaUserRepository implements UserRepository {
   }
 
   public async findAllUsers() {
-    const data = await this.prisma.user.findMany();
+    const data = await this.prisma.user.findMany({
+      include: {
+        vouchers: true,
+      },
+    });
 
     return {
       data,
@@ -49,6 +53,9 @@ export class PrismaUserRepository implements UserRepository {
             id: voucherId,
           },
         },
+      },
+      include: {
+        vouchers: true,
       },
     });
 

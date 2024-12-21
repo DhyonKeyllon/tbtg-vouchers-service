@@ -1,1 +1,1 @@
-export * from './voucher';
+export * from './voucher.controller';

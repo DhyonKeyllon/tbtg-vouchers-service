@@ -7,10 +7,7 @@ class DefaultCreateUserDTO extends PickType(UserDTO, [
   'email',
 ] as const) {}
 
-export class NewCreateUserDto extends PickType(UserDTO, [
-  'name',
-  'email',
-] as const) {
+class NewCreateUserDTO extends PickType(UserDTO, ['name', 'email'] as const) {
   @IsNotEmpty()
   public readonly email: string;
 
@@ -20,5 +17,5 @@ export class NewCreateUserDto extends PickType(UserDTO, [
 
 export class CreateOneUserDTO extends IntersectionType(
   DefaultCreateUserDTO,
-  NewCreateUserDto,
+  NewCreateUserDTO,
 ) {}
