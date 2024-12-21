@@ -129,7 +129,7 @@ export class VoucherController {
   @Patch(':code')
   @ApiOperation({
     description: 'Update one voucher status with required fields',
-    summary: 'Update one voucher vtatus',
+    summary: 'Update one voucher status',
   })
   @ApiResponse({
     status: HttpStatus.OK,
