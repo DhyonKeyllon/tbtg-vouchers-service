@@ -2,10 +2,7 @@ import { ConflictException, Injectable } from '@nestjs/common';
 import { PrismaService } from '../orm';
 import { UserRepository } from '../../domain/repositories';
 import { User } from '../../domain/entities';
-import {
-  AssociateVoucherToUserDTO,
-  CreateOneUserDTO,
-} from '../../presentation/dtos';
+import { CreateOneUserDTO } from '../../presentation/dtos';
 import { CommonResponse } from '@/shared/types';
 import { VoucherServiceClient } from '../http/clients';
 
@@ -45,12 +42,12 @@ export class PrismaUserRepository implements UserRepository {
 
   public async associateVoucherToUser(
     userId: string,
-    { voucherCode }: AssociateVoucherToUserDTO,
+    voucherCode: string,
   ): Promise<CommonResponse<User>> {
-    const { data: isVoucherUsed } =
+    const isUsedVoucher =
       await this.voucherServiceClient.isVoucherUsed(voucherCode);
 
-    if (isVoucherUsed)
+    if (isUsedVoucher)
       throw new ConflictException('This voucher has already been used');
 
     const userUpdated = await this.prisma.user.update({
@@ -60,7 +57,7 @@ export class PrismaUserRepository implements UserRepository {
       data: {
         vouchers: {
           connect: {
-            id: voucherCode,
+            code: voucherCode,
           },
         },
       },

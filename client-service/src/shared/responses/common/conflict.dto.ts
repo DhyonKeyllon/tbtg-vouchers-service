@@ -4,7 +4,7 @@ import { ApiProperty } from '@nestjs/swagger';
 class ConflictErrorResponse {
   @ApiProperty({
     description: 'Error message',
-    example: 'User already exists',
+    example: 'A resource with the same unique restricted key already exists',
   })
   public readonly message: string;
 

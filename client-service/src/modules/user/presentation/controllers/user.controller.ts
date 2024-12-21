@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, HttpStatus, Param } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  HttpStatus,
+  Param,
+  Put,
+} from '@nestjs/common';
 import { UserService } from '../../application/services/user.service';
 import { User } from '../../domain/entities/user.entity';
 import { CreateOneUserDTO } from '../dtos/create-one-user.dto';
@@ -13,8 +21,6 @@ import {
   InvalidEntriesResponseDTO,
 } from '@/shared/responses';
 import { CommonResponse } from '@/shared/types';
-import { AssociateVoucherToUserDTO } from '../dtos';
-import { VoucherServiceClient } from '../../infra/http/clients';
 
 @ApiTags('users')
 @Controller('users')
@@ -58,7 +64,7 @@ export class UserController {
     return this.userService.findAllUsers();
   }
 
-  @Post(':id/vouchers')
+  @Put(':id/vouchers/:code')
   @ApiOperation({ summary: 'Associate voucher to user' })
   @ApiResponse({
     status: HttpStatus.CREATED,
@@ -80,11 +86,8 @@ export class UserController {
   })
   public async associateVoucherToUser(
     @Param('id') userId: string,
-    @Body() associateVoucherToUserDto: AssociateVoucherToUserDTO,
+    @Param('code') voucherCode: string,
   ) {
-    return this.userService.associateVoucherToUser(
-      userId,
-      associateVoucherToUserDto,
-    );
+    return this.userService.associateVoucherToUser(userId, voucherCode);
   }
 }

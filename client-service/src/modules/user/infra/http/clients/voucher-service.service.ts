@@ -11,7 +11,7 @@ export class VoucherServiceClient {
     private readonly httpService: HttpService,
     private readonly configService: ConfigService,
   ) {
-    this.url = configService.get('VOUCHER_SERVICE_URL');
+    this.url = this.configService.get('VOUCHER_SERVICE_URL');
   }
 
   public async isVoucherUsed(code: string) {
@@ -22,15 +22,8 @@ export class VoucherServiceClient {
     if (response.status !== HttpStatus.OK)
       throw new BadRequestException(response.data);
 
-    const { data } = response;
+    const { data: voucherIsUsed } = response.data;
 
-    return { data };
-  }
-
-  async isVoucherActive(voucherCode: string): Promise<boolean> {
-    const response = await this.httpService
-      .get<boolean>(`http://vouchers-service/vouchers/${voucherCode}/is-active`)
-      .toPromise();
-    return response.data;
+    return voucherIsUsed;
   }
 }

@@ -10,6 +10,6 @@ export interface UserRepository {
 
   associateVoucherToUser(
     userId: string,
-    dto: { voucherCode: string },
+    voucherCode: string,
   ): Promise<CommonResponse<User>>;
 }

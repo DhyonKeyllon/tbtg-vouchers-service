@@ -1,11 +1,16 @@
+import { VoucherStatus } from '@/shared/enums';
+
 type Voucher = {
   id: string;
   code: string;
+  status: VoucherStatus;
 
   createdAt: string;
   updatedAt: string;
 
-  expiredAt?: string;
+  userId?: string;
+
+  expirationDate?: string;
 };
 
 type UserStubType = {
@@ -44,11 +49,13 @@ export const userStubWithAssociatedVouchers: UserStubType = {
   name: 'John Doe',
   vouchers: [
     {
-      id: '64e4fd23-6e19-4ddb-bdeb-9e327f924eaa',
-      code: 'VoucherCode',
-      createdAt: '2024-07-15T15:27:15.700Z',
-      updatedAt: '2024-07-15T15:27:15.700Z',
-      expiredAt: '2024-07-15T15:27:15.700Z',
+      id: 'af94fcca-b796-4a05-9a19-04a66b28db7f',
+      code: 'CODEEXAMPLE',
+      status: 'ACTIVE',
+      expirationDate: '2024-12-21T17:00:17.303Z',
+      userId: 'f0f364a4-3f05-4eaf-95e4-7a60ea6f8ed3',
+      createdAt: '2024-12-21T17:02:35.007Z',
+      updatedAt: '2024-12-21T20:48:41.035Z',
     },
   ],
   createdAt: '2024-07-15T15:27:15.700Z',

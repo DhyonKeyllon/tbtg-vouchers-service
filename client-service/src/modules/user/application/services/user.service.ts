@@ -1,9 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { UserRepository } from '../../domain/repositories';
-import {
-  AssociateVoucherToUserDTO,
-  CreateOneUserDTO,
-} from '../../presentation/dtos';
+import { CreateOneUserDTO } from '../../presentation/dtos';
 import { CommonResponse } from '@/shared/types';
 import { User } from '../../domain/entities';
 
@@ -24,10 +21,7 @@ export class UserService {
     return this.userRepository.findAllUsers();
   }
 
-  public async associateVoucherToUser(
-    userId: string,
-    dto: AssociateVoucherToUserDTO,
-  ) {
-    return this.userRepository.associateVoucherToUser(userId, dto);
+  public async associateVoucherToUser(userId: string, voucherCode: string) {
+    return this.userRepository.associateVoucherToUser(userId, voucherCode);
   }
 }
