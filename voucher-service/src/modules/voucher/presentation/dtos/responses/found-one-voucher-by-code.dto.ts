@@ -1,4 +1,4 @@
-import { voucherStub } from '@/modules/voucher/tests/stubs/voucher.stub';
+import { voucherStub } from '@/modules/voucher/tests/stubs';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class FoundOneVoucherByCodeResponseDTO {

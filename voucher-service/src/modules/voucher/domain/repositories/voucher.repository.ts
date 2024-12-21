@@ -1,6 +1,5 @@
 import { CommonResponse } from '@/shared/types';
 import { Voucher } from '../entities';
-import { VoucherStatus } from '@/shared/enums';
 
 export interface VoucherRepository {
   createOneVoucher(

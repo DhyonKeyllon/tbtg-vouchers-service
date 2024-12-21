@@ -1,4 +1,4 @@
-import { VoucherStatus } from '@/shared/enums';
+import { type VoucherStatus } from '@/shared/enums';
 
 type Voucher = {
   id: string;

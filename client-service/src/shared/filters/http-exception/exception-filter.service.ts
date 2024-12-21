@@ -34,7 +34,7 @@ export class HttpExceptionFilter<T> implements ExceptionFilter {
     // * Exception if the query engine returns a known error related to the request
     else if (exception instanceof Prisma.PrismaClientKnownRequestError) {
       statusCode = getPrismaKnownExceptionStatus(exception);
-      message = `[${exception.code}]: ${exception.name}: ${exception.message}`;
+      message = `[${exception.code}]: ${exception.name}`;
       meta = exception.meta;
     }
     // * Exception if the query engine returns an error related to a request that does not have an error code

@@ -1,4 +1,4 @@
-import { VoucherStatus } from '@/shared/enums';
+import { type VoucherStatus } from '@/shared/enums';
 
 export class Voucher {
   public readonly id: string;
