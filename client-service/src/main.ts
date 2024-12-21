@@ -29,7 +29,6 @@ async function bootstrap() {
   app.useGlobalFilters(new HttpExceptionFilter());
 
   const config = new DocumentBuilder()
-    .addBearerAuth()
     .setTitle(TITLE)
     .setDescription(DESCRIPTION)
     .setVersion(API_VERSION)

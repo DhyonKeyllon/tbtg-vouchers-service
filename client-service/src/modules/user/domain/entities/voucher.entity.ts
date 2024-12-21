@@ -1,9 +1,11 @@
+import { VoucherStatus } from '@/shared/enums';
+
 export class Voucher {
   public readonly id: string;
   public readonly code: string;
-  public readonly discount: number;
-  public readonly expireDate: Date;
+  public readonly expirationDate: Date;
   public readonly userId: string;
+  public readonly status: VoucherStatus;
 
   public readonly createdAt: Date;
   public readonly updatedAt: Date;
