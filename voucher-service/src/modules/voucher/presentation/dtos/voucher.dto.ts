@@ -28,7 +28,7 @@ export class VoucherDTO extends CommonFieldsDTO {
     required: false,
   })
   @IsEnum(VoucherStatus, {
-    message: 'Status must be ACTIVE, INACTIVE, or USED',
+    message: 'Status must be ACTIVE or INACTIVE',
   })
   public readonly status?: VoucherStatus;
 
