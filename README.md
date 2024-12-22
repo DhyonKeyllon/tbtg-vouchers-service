@@ -51,11 +51,14 @@ Node.js v22.10.0 ou acima
 
 - 2.1. Crie um arquivo `.env` e coloque as mesmas envs e valores do arquivo `.env.example`.
 
-- 2.2. No mesmo diretório `./client-service` execute o comando `npm run prisma:generate` para compilar os types necessários para rodar o prisma.
+- 2.2. No mesmo diretório `./client-service` execute o comando `npm run prisma:generate` e em seguida rode o comando `npm run prisma:push` para compilar os types nescessários e criar as entidades no banco de dados.
 
 ```bash
   # prisma generate
   $ npm run prisma:generate
+
+  # prisma db push
+  $ npm run prisma:push
 ```
 
 - 2.3. Rode o servidor executando o comando `npm run start:dev`, certifique-se que sua porta local `:3000` esteja disponível para uso.
